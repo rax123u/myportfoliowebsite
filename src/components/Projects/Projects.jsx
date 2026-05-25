@@ -5,6 +5,9 @@ import { setProjectFilter, setActiveModal } from '../../store/slices/uiSlice'
 import { selectProjectFilter } from '../../store/selectors/selectors'
 import ProjectCard from './ProjectCard'
 import ProjectFilter from './ProjectFilter'
+import portfolio from '../../assets/portfolio.png'
+import ecommerce from '../../assets/e commerce.png'
+import dashboard from '../../assets/dashboard.png'
 
 const PROJECTS = [
   {
@@ -12,7 +15,7 @@ const PROJECTS = [
     title: '3D Portfolio Showcase',
     description: 'Interactive 3D portfolio with GSAP animations and Three.js',
     category: 'webgl',
-    image: 'src/components/Projects/portfolio.png',
+    image: 'src/assets/portfolio.png',
     tags: ['React', 'Three.js', 'GSAP', 'Framer Motion'],
     link: '#',
   },
@@ -21,7 +24,7 @@ const PROJECTS = [
     title: 'E-Commerce Platform',
     description: 'High-performance e-commerce with advanced filtering and animations',
     category: 'commerce',
-    image: 'src/components/Projects/e commerce.jpg',
+    image: 'src/assets/e commerce.png',
     tags: ['React', 'Redux', 'Tailwind', 'Stripe'],
     link: 'https://digital-retail-store.vercel.app/',
   },
@@ -30,7 +33,7 @@ const PROJECTS = [
     title: 'Dashboard Analytics',
     description: 'Real-time data visualization with animated charts and metrics',
     category: 'dashboard',
-    image: 'src/components/Projects/dashboard.png',
+    image: 'src/assets/dashboard.png',
     tags: ['React', 'D3.js', 'Redux', 'Chart.js'],
     link: 'https://ai-review-app.vercel.app/',
   },
