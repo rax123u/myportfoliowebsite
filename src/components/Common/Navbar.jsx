@@ -18,15 +18,21 @@ const Navbar = () => {
 
   const menuVariants = {
     closed: {
+      height: 0,
       opacity: 0,
-      y: -20,
       pointerEvents: 'none',
+      transition: {
+        height: { duration: 0.3, ease: 'easeInOut' },
+        opacity: { duration: 0.2 },
+      },
     },
     open: {
+      height: 'auto',
       opacity: 1,
-      y: 0,
       pointerEvents: 'auto',
       transition: {
+        height: { duration: 0.35, ease: 'easeInOut' },
+        opacity: { duration: 0.3 },
         staggerChildren: 0.1,
       },
     },
@@ -43,7 +49,7 @@ const Navbar = () => {
       {/* Glow effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-transparent to-cyan-500/5 pointer-events-none" />
 
-      <div className="relative max-w-7xl mx-auto px-6 md:px-10">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10">
         <div className="flex items-center justify-between h-20">
 
           {/* LOGO */}
