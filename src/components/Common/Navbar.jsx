@@ -96,7 +96,7 @@ const Navbar = () => {
 
           {/* CTA BUTTON */}
           <div className="hidden sm:flex items-center">
-            <a href="/resume.pdf" download>
+            <a href="/resume .pdf" download>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.96 }}

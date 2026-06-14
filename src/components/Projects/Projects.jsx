@@ -18,7 +18,7 @@ const PROJECTS = [
     category: 'webgl',
     image: portfolio,
     tags: ['React', 'Three.js', 'GSAP', 'Framer Motion'],
-    link: '#',
+    link: 'https://myportfoliowebsite-fg7xizkgm-rax123us-projects.vercel.app/',
   },
   {
     id: 2,
