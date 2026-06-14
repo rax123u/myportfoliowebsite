@@ -70,7 +70,7 @@ const ProjectModal = ({ projects = [] }) => {
             {/* Close button */}
             <button
               onClick={() => dispatch(setActiveModal(null))}
-              className="absolute top-6 right-6 p-2 rounded-lg bg-accent/20 text-accent hover:bg-accent/40 transition-all"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2 rounded-lg bg-accent/20 text-accent hover:bg-accent/40 transition-all z-20"
               aria-label="Close modal"
             >
               <svg
@@ -89,10 +89,10 @@ const ProjectModal = ({ projects = [] }) => {
             </button>
 
             {/* Content */}
-            <div className="p-8">
+            <div className="p-5 sm:p-8">
               {/* Project image */}
               <motion.div
-                className="w-full h-80 rounded-xl overflow-hidden mb-6"
+                className="w-full h-48 sm:h-80 rounded-xl overflow-hidden mb-6"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
@@ -172,7 +172,7 @@ const ProjectModal = ({ projects = [] }) => {
 
               {/* Action buttons */}
               <motion.div
-                className="flex gap-4"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}

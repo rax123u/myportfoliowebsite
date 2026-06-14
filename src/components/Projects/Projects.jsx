@@ -5,9 +5,10 @@ import { setProjectFilter, setActiveModal } from '../../store/slices/uiSlice'
 import { selectProjectFilter } from '../../store/selectors/selectors'
 import ProjectCard from './ProjectCard'
 import ProjectFilter from './ProjectFilter'
-import portfolio from '../assets/portfolio.png'
-import ecommerce from '../assets/e commerce.png'
-import dashboard from '../assets/dashboard.png'
+import ProjectModal from './Project.Modal'
+import portfolio from '../../assets/portfolio.png'
+import ecommerce from '../../assets/e commerce.png'
+import dashboard from '../../assets/dashboard.png'
 
 const PROJECTS = [
   {
@@ -116,6 +117,7 @@ const Projects = () => {
         </motion.div>
 
       </div>
+      <ProjectModal projects={PROJECTS} />
     </section>
   )
 }

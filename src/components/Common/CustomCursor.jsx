@@ -1,12 +1,26 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
  
 const CustomCursor = () => {
   const cursorRef = useRef(null)
   const cursorDotRef = useRef(null)
   const mousePos = useRef({ x: 0, y: 0 })
+  const [isTouchDevice, setIsTouchDevice] = useState(false)
  
   useEffect(() => {
+    const checkTouch = () => {
+      return (
+        window.matchMedia('(pointer: coarse)').matches ||
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0
+      )
+    }
+
+    if (checkTouch()) {
+      setIsTouchDevice(true)
+      return
+    }
+
     const cursor = cursorRef.current
     const dot = cursorDotRef.current
  
@@ -55,6 +69,8 @@ const CustomCursor = () => {
     }
   }, [])
  
+  if (isTouchDevice) return null
+
   return (
     <>
       <style>{`

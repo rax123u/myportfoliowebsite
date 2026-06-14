@@ -44,7 +44,7 @@ const About = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <h2 className="font-['Space_Grotesk'] text-5xl md:text-7xl font-black uppercase tracking-[-3px]">
+          <h2 className="font-['Space_Grotesk'] text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-[-3px]">
             About <span className="text-cyan-400 drop-shadow-[0_0_25px_rgba(34,211,238,0.7)]">Me</span>
           </h2>
 
@@ -117,7 +117,7 @@ const About = () => {
             viewport={{ once: true }}
             className="relative"
           >
-            <div className="relative h-[500px] rounded-[30px] overflow-hidden border border-cyan-500/20 bg-black/40 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,255,255,0.08)]">
+            <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] rounded-[30px] overflow-hidden border border-cyan-500/20 bg-black/40 backdrop-blur-2xl shadow-[0_0_60px_rgba(0,255,255,0.08)]">
               <img
                 src={rayan}
                 alt="Rayyan"

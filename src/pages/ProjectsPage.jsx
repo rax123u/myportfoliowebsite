@@ -27,7 +27,7 @@ const ProjectsPage = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="font-['Space_Grotesk'] text-5xl md:text-7xl font-black uppercase tracking-[-3px]"
+            className="font-['Space_Grotesk'] text-4xl sm:text-5xl md:text-7xl font-black uppercase tracking-[-3px]"
           >
             {' '}
             <span className="text-cyan-400 drop-shadow-[0_0_25px_rgba(34,211,238,0.7)]">

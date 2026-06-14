@@ -19,7 +19,7 @@ const ScrollProgress = () => {
   return (
     <div
       ref={progressRef}
-      className="fixed top-16 left-0 h-1 bg-gradient-cyan-pink z-40 transform-gpu"
+      className="fixed top-20 left-0 h-1 bg-gradient-cyan-pink z-40 transform-gpu"
       style={{
         transformOrigin: 'left',
         scaleX: 0,

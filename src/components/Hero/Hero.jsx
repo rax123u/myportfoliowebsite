@@ -1,5 +1,5 @@
-import React, { useRef, useEffect, memo } from 'react'
-import { Canvas, useFrame } from '@react-three/fiber'
+import React, { useRef, useEffect, useState, memo } from 'react'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, Environment } from '@react-three/drei'
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import * as THREE from 'three'
@@ -14,7 +14,7 @@ const fadeIn = {
 }
 
 const cardClass =
-  'p-8 rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-slate-900/50 to-black/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-300'
+  'p-6 sm:p-8 rounded-2xl border border-cyan-400/20 bg-gradient-to-br from-slate-900/50 to-black/50 backdrop-blur-sm hover:border-cyan-400/50 transition-all duration-300'
 
 const skills = [
   {
@@ -90,13 +90,13 @@ const stats = [
 ]
 
 
-const Button = ({ children, secondary }) => (
+const Button = ({ children, secondary, className = '' }) => (
   <button
     className={`px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 ${
       secondary
         ? 'border-2 border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black'
         : 'bg-cyan-400 text-black hover:scale-105 hover:shadow-[0_0_40px_rgba(34,211,238,0.6)]'
-    }`}
+    } ${className}`}
   >
     {children}
   </button>
@@ -104,15 +104,15 @@ const Button = ({ children, secondary }) => (
 
 function Section({ title, subtitle, children }) {
   return (
-    <ScrollSection className="px-6 md:px-12">
+    <ScrollSection className="px-4 sm:px-6 md:px-12">
       <div className="max-w-6xl w-full relative z-20">
         <motion.div {...fadeIn} className="text-center mb-16">
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-4">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white mb-4">
             {title}
           </h2>
 
           {subtitle && (
-            <p className="text-xl text-gray-400">{subtitle}</p>
+            <p className="text-lg sm:text-xl text-gray-400">{subtitle}</p>
           )}
         </motion.div>
 
@@ -125,6 +125,8 @@ function Section({ title, subtitle, children }) {
 function CoreSystemMesh({ smoothScrollY }) {
   const { scene } = useGLTF('/models/explodedMesh.glb')
   const ref = useRef()
+  const { size } = useThree()
+  const width = size.width
 
   useFrame(() => {
     if (!ref.current) return
@@ -144,12 +146,15 @@ function CoreSystemMesh({ smoothScrollY }) {
       0.05
     )
 
-    const scale = THREE.MathUtils.lerp(2.4, 1.8, scroll)
+    const baseScale = width < 640 ? 1.3 : width < 1024 ? 1.8 : 2.4
+    const targetScale = width < 640 ? 0.9 : width < 1024 ? 1.3 : 1.8
+    const scale = THREE.MathUtils.lerp(baseScale, targetScale, scroll)
     ref.current.scale.setScalar(scale)
   })
 
+  const initialScale = width < 640 ? 1.3 : width < 1024 ? 1.8 : 2.4
   return (
-    <group ref={ref} scale={2.4}>
+    <group ref={ref} scale={initialScale}>
       <primitive object={scene} />
     </group>
   )
@@ -167,6 +172,16 @@ function AnimatedBackground() {
 
 function ScrollSection({ children, className = '' }) {
   const ref = useRef()
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -175,14 +190,14 @@ function ScrollSection({ children, className = '' }) {
 
   const opacity = useTransform(
     scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [0, 1, 1, 0]
+    [0, 0.15, 0.85, 1],
+    [isMobile ? 0.6 : 0, 1, 1, isMobile ? 0.6 : 0]
   )
 
   const y = useTransform(
     scrollYProgress,
     [0, 0.3, 0.7, 1],
-    [100, 0, 0, -100]
+    [isMobile ? 15 : 100, 0, 0, isMobile ? -15 : -100]
   )
 
   return (
@@ -210,7 +225,7 @@ const HeroSection = memo(() => (
           Welcome to my portfolio
         </p>
 
-        <h1 className="text-6xl md:text-8xl font-black leading-none text-white">
+        <h1 className="text-4xl sm:text-6xl md:text-8xl font-black leading-none text-white">
           MUHAMMAD
           <br />
           <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -223,13 +238,13 @@ const HeroSection = memo(() => (
           creative solutions and scalable technologies.
         </p>
 
-        <div className="flex gap-6 pt-6">
-          <Link to="/projects">
-            <Button>View Work</Button>
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-6">
+          <Link to="/projects" className="w-full sm:w-auto">
+            <Button className="w-full sm:w-auto">View Work</Button>
           </Link>
 
-          <Link to="/contact">
-            <Button secondary>Contact Me</Button>
+          <Link to="/contact" className="w-full sm:w-auto">
+            <Button secondary className="w-full sm:w-auto">Contact Me</Button>
           </Link>
         </div>
       </motion.div>
@@ -248,7 +263,7 @@ const HeroSection = memo(() => (
 function SkillsSection() {
   return (
     <Section title="Skills & Expertise" subtitle="Technologies I work with">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
         {skills.map((group, idx) => (
           <motion.div
             key={idx}
@@ -311,7 +326,7 @@ function ProjectsSection() {
             className={cardClass}
           >
             <div className="grid md:grid-cols-3 gap-8 items-center">
-              <div className="text-7xl">{project.image}</div>
+              <div className="text-5xl sm:text-7xl">{project.image}</div>
 
               <div className="md:col-span-2">
                 <h3 className="text-3xl font-black text-white mb-2">
@@ -345,7 +360,7 @@ function StatsSection() {
             transition={{ delay: idx * 0.1 }}
             className="text-center"
           >
-            <div className="text-5xl font-black text-cyan-400 mb-3">
+            <div className="text-3xl sm:text-5xl font-black text-cyan-400 mb-3">
               {stat.value}
             </div>
 
@@ -361,7 +376,7 @@ function CTASection() {
   return (
     <ScrollSection className="px-6 md:px-12">
       <motion.div {...fadeIn} className="text-center max-w-3xl z-20">
-        <h2 className="text-5xl md:text-7xl font-black text-white mb-8">
+        <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-8">
           Let’s Create Something Amazing
         </h2>
 
@@ -369,13 +384,13 @@ function CTASection() {
           I’m always open to exciting projects and collaborations.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-6 justify-center">
-          <Link to="/contact">
-            <Button>Get In Touch</Button>
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center">
+          <Link to="/contact" className="w-full sm:w-auto">
+            <Button className="w-full sm:w-auto">Get In Touch</Button>
           </Link>
 
-          <Link to="/projects">
-            <Button secondary>See My Work</Button>
+          <Link to="/projects" className="w-full sm:w-auto">
+            <Button secondary className="w-full sm:w-auto">See My Work</Button>
           </Link>
         </div>
       </motion.div>

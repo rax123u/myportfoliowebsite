@@ -76,15 +76,15 @@ const Stats = () => {
           key={stat.label}
           ref={(el) => (statsRef.current[index] = el)}
           variants={itemVariants}
-          className="glass rounded-xl p-6 text-center"
+          className="glass rounded-xl p-4 sm:p-6 text-center"
         >
           <p
             data-stat-number={stat.value}
-            className="text-4xl font-bold text-accent mb-2"
+            className="text-2xl sm:text-4xl font-bold text-accent mb-2"
           >
             0
           </p>
-          <p className="text-gray-400 font-medium">{stat.label}</p>
+          <p className="text-gray-400 font-medium text-sm sm:text-base">{stat.label}</p>
         </motion.div>
       ))}
     </motion.div>
